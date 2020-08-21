@@ -1,9 +1,13 @@
 pipeline {
   agent any
+  environment {
+      GIT_SSH_COMMAND = 'ssh -i ~/.ssh/id_rsa'
+  }
   stages {
     stage('Build') {
       steps {
         echo "Updating git submodule"
+        sh 'printenv'
         sh 'git submodule update --recursive --remote'
       }
     }    
