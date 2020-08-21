@@ -1,0 +1,35 @@
+---
+- name: Deploy app
+  hosts: webserver
+  become: yes
+  vars:
+    app_deploy_dest: /srv/app/
+  tasks:
+  - name: Install NGINX web server
+    package:
+      name: nginx
+      state: present
+  - name: Copy source code to webserver
+    copy:
+      src: app-src/
+      dest: "{{ app_deploy_dest }}"
+    notify:
+    - Restart NGINX service
+  - name: Enable NIGNX service
+    service:
+      name: nginx
+      enabled: yes
+      state: started
+  - name: Setup NGINX for the app
+    template:
+      src: nginx.conf.j2
+      dest: /etc/nginx/nginx.conf
+      owner: root
+      group: root
+    notify:
+    - Restart NGINX service
+  handlers:
+  - name: Restart NGINX service
+    service:
+      name: nginx
+      state: restarted
