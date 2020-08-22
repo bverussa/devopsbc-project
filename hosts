@@ -2,6 +2,7 @@
 aws1    ansible_host=15.222.11.199  ansible_user=ubuntu
 aws2	ansible_host=35.183.97.90   ansible_user=ubuntu
 aws3	ansible_host=35.182.201.44  ansible_user=ubuntu
+aws4	ansible_host=3.96.193.160  ansible_user=ubuntu
 
 [prod:children]
 webserver
