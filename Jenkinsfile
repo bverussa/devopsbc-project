@@ -1,6 +1,9 @@
 pipeline {
   agent any
-  stages {
+  environment {
+      GIT_SSH_COMMAND = 'ssh -i ~/.ssh/id_rsa'
+  }
+  stages {   
     stage('Deploy') {
       steps {
         echo "Executing Ansible Playbook"
